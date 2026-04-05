@@ -81,7 +81,7 @@ export default function Hero() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="flex items-center gap-5 mb-8"
         >
-          <GeometricAvatar1 size={88} />
+          <GeometricAvatar1 size={104} />
 
           <div>
             <h1
