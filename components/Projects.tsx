@@ -116,7 +116,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export default function Projects() {
   return (
-    <section id="projects" style={{ background: "var(--bg-secondary)" }} className="py-24">
+    <section id="projects" style={{ background: "var(--bg-secondary)" }} className="py-16">
       <div className="max-w-3xl mx-auto px-6 md:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -131,13 +131,13 @@ export default function Projects() {
               fontFamily: "var(--font-inter), sans-serif",
             }}
           >
-            Things I shipped
+            Case Files
           </h2>
           <p
             className="mt-2 text-base"
             style={{ color: "var(--text-secondary)" }}
           >
-            (and what I learned shipping them)
+            Work I&apos;ve done — and what I learned doing it
           </p>
         </motion.div>
 

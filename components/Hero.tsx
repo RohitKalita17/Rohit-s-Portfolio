@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import GeometricAvatar1 from "./GeometricAvatar1";
 
 const LINES = [
-  "> loading rohit...",
   "> role: Product Manager",
   "> current_build: Paytm Gold & Silver",
   '> philosophy: turning "why is this so hard?" into "that was easy"',
@@ -65,45 +66,56 @@ export default function Hero() {
     };
   }, [reducedMotion, currentLineIdx, currentChar]);
 
-  const renderLine = (line: string, idx: number) => {
-    const isLastLine = idx === LINES.length - 1;
-    const isTypingThisLine =
-      !reducedMotion && idx === currentLineIdx && !done;
-
-    // For the last line, separate the ▮ cursor
-    const content = isLastLine
-      ? line.replace("▮", "")
-      : line;
-
-    const showCursor = isLastLine && done;
-
-    const prefix = line.startsWith(">") ? ">" : "";
-    const rest = line.startsWith(">") ? line.slice(1) : line;
-
-    return (
-      <div key={idx} className="leading-relaxed text-base md:text-lg lg:text-xl">
-        {prefix && (
-          <span style={{ color: "var(--accent)" }}>&gt;</span>
-        )}
-        <span style={{ color: "var(--terminal-text)" }}>
-          {line.startsWith(">") ? rest : line}
-          {isLastLine && !isTypingThisLine && showCursor && (
-            <span className="cursor-blink ml-1">▮</span>
-          )}
-        </span>
-      </div>
-    );
-  };
-
   return (
     <section
       id="hero"
       style={{ background: "var(--bg-primary)" }}
-      className="min-h-screen flex items-center justify-center px-4"
+      className="min-h-[85vh] flex items-center justify-center px-4 py-12"
     >
       <div className="max-w-2xl w-full mx-auto">
-        {/* Terminal frame */}
-        <div
+
+        {/* ── Name + Avatar row ── */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="flex items-center gap-5 mb-8"
+        >
+          <GeometricAvatar1 size={88} />
+
+          <div>
+            <h1
+              className="text-3xl md:text-4xl font-bold"
+              style={{
+                color: "var(--text-primary)",
+                fontFamily: "var(--font-jetbrains), monospace",
+                letterSpacing: "0.01em",
+                lineHeight: 1.15,
+              }}
+            >
+              Rohit Kalita
+            </h1>
+            {/* Accent underline */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+              style={{
+                height: "2px",
+                width: "100%",
+                background: "linear-gradient(90deg, var(--accent), transparent)",
+                marginTop: "6px",
+                transformOrigin: "left",
+              }}
+            />
+          </div>
+        </motion.div>
+
+        {/* ── Terminal frame ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
           className="rounded-lg overflow-hidden"
           style={{ border: "1px solid #1E1E1E" }}
         >
@@ -128,7 +140,7 @@ export default function Hero() {
             className="p-6 md:p-8"
             style={{
               background: "#0A0A0A",
-              minHeight: "280px",
+              minHeight: "180px",
               fontFamily: "var(--font-jetbrains), monospace",
             }}
           >
@@ -137,7 +149,7 @@ export default function Hero() {
               const isComplete = idx < currentLineIdx || done;
 
               return (
-                <div key={idx} className="leading-relaxed text-base md:text-lg lg:text-xl">
+                <div key={idx} className="leading-relaxed text-sm md:text-base lg:text-lg">
                   {line.startsWith(">") ? (
                     <>
                       <span style={{ color: "var(--accent)" }}>&gt;</span>
@@ -155,24 +167,23 @@ export default function Hero() {
               );
             })}
 
-            {/* Typing cursor on current line */}
             {!done && currentLineIdx < LINES.length && (
-              <div className="leading-relaxed text-base md:text-lg lg:text-xl">
+              <div className="leading-relaxed">
                 {displayedLines[currentLineIdx] !== undefined ? null : (
                   <span className="cursor-blink" style={{ color: "var(--accent)" }}>_</span>
                 )}
               </div>
             )}
           </div>
-        </div>
+        </motion.div>
 
         {/* CTA */}
         <div
-          className="mt-8 text-center transition-opacity duration-700"
+          className="mt-6 text-center transition-opacity duration-700"
           style={{ opacity: done ? 1 : 0 }}
         >
           <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-            scroll to see what I&apos;ve shipped{" "}
+            scroll to see what I&apos;ve built{" "}
             <span className="inline-block animate-bounce">↓</span>
           </p>
         </div>

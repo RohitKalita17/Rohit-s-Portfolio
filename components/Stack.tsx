@@ -25,7 +25,7 @@ const beliefs = [
 
 export default function Stack() {
   return (
-    <section id="stack" style={{ background: "var(--bg-primary)" }} className="py-24">
+    <section id="stack" style={{ background: "var(--bg-primary)" }} className="py-16">
       <div className="max-w-3xl mx-auto px-6 md:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

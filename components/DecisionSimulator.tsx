@@ -73,7 +73,7 @@ export default function DecisionSimulator() {
   };
 
   return (
-    <section id="decisions" style={{ background: "var(--bg-secondary)" }} className="py-24">
+    <section id="decisions" style={{ background: "var(--bg-secondary)" }} className="py-16">
       <div className="max-w-3xl mx-auto px-6 md:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -88,7 +88,7 @@ export default function DecisionSimulator() {
               fontFamily: "var(--font-inter), sans-serif",
             }}
           >
-            PM Decision Simulator
+            Decision Simulator
           </h2>
           <p
             className="mt-2 text-base"

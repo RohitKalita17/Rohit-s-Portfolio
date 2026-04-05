@@ -81,31 +81,39 @@ function VersionBlock({ v }: { v: Version }) {
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
       >
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center flex-wrap gap-x-3 gap-y-1">
-            <span
-              className="font-mono text-sm font-semibold"
-              style={{ color: "var(--accent)" }}
-            >
-              {v.version}
-            </span>
-            <span
-              className="font-bold"
-              style={{ color: "var(--text-primary)" }}
-            >
-              {v.company}
-            </span>
+        <div className="flex items-start justify-between gap-2">
+          <div className="flex flex-col gap-0.5">
+            <div className="flex items-center flex-wrap gap-x-3 gap-y-1">
+              <span
+                className="font-mono text-sm font-semibold"
+                style={{ color: "var(--accent)" }}
+              >
+                {v.version}
+              </span>
+              <span
+                className="font-bold"
+                style={{ color: "var(--text-primary)" }}
+              >
+                {v.company}
+              </span>
+              <span
+                className="text-sm"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                {v.period}
+              </span>
+            </div>
             <span
               className="text-sm"
               style={{ color: "var(--text-secondary)" }}
             >
-              {v.period}
+              {v.role}
             </span>
           </div>
           <motion.span
             animate={{ rotate: open ? 180 : 0 }}
             transition={{ duration: 0.2 }}
-            style={{ color: "var(--text-secondary)", flexShrink: 0 }}
+            style={{ color: "var(--text-secondary)", flexShrink: 0, marginTop: "2px" }}
           >
             <ChevronDown size={18} />
           </motion.span>
@@ -127,13 +135,6 @@ function VersionBlock({ v }: { v: Version }) {
               className="px-4 pb-4 pt-2 rounded-b-lg"
               style={{ background: "#141414" }}
             >
-              <p
-                className="text-sm mb-3"
-                style={{ color: "var(--text-secondary)" }}
-              >
-                {v.role}
-              </p>
-
               <div className="space-y-3">
                 <div>
                   <span
@@ -202,7 +203,7 @@ function VersionBlock({ v }: { v: Version }) {
 
 export default function Experience() {
   return (
-    <section id="experience" style={{ background: "var(--bg-primary)" }} className="py-24">
+    <section id="experience" style={{ background: "var(--bg-primary)" }} className="py-16">
       <div className="max-w-3xl mx-auto px-6 md:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
