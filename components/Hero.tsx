@@ -1,15 +1,25 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import GeometricAvatar1 from "./GeometricAvatar1";
 
 const LINES = [
   "> role: Product Manager",
-  "> current_build: Paytm Gold & Silver",
+  "> current_build: Paytm",
   '> philosophy: turning "why is this so hard?" into "that was easy"',
-  "> status: shipping ▮",
+  "> status: building",
 ];
+
+const COMMANDS: Record<string, { action: string; response: string }> = {
+  projects: { action: "#projects", response: "> navigating to case files..." },
+  "case files": { action: "#projects", response: "> opening case files..." },
+  about: { action: "#about", response: "> loading the story so far..." },
+  help: {
+    action: "",
+    response: '> commands: "projects", "about", "help"',
+  },
+};
 
 function useReducedMotion(): boolean {
   const [reduced, setReduced] = useState(false);
@@ -29,6 +39,10 @@ export default function Hero() {
   const [currentLineIdx, setCurrentLineIdx] = useState(0);
   const [currentChar, setCurrentChar] = useState(0);
   const [done, setDone] = useState(false);
+  const [showInput, setShowInput] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [terminalOutput, setTerminalOutput] = useState<string[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -66,11 +80,48 @@ export default function Hero() {
     };
   }, [reducedMotion, currentLineIdx, currentChar]);
 
+  // Show input 1.5s after typewriter finishes
+  useEffect(() => {
+    if (!done) return;
+    const t = setTimeout(() => setShowInput(true), reducedMotion ? 0 : 1500);
+    return () => clearTimeout(t);
+  }, [done, reducedMotion]);
+
+  // Focus input when it appears
+  useEffect(() => {
+    if (showInput && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [showInput]);
+
+  const handleCommand = useCallback((e: React.FormEvent) => {
+    e.preventDefault();
+    const cmd = inputValue.trim().toLowerCase();
+    setInputValue("");
+
+    const match = COMMANDS[cmd];
+    if (match) {
+      setTerminalOutput((prev) => [...prev, `$ ${cmd}`, match.response]);
+      if (match.action) {
+        setTimeout(() => {
+          const el = document.querySelector(match.action);
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        }, 600);
+      }
+    } else {
+      setTerminalOutput((prev) => [
+        ...prev,
+        `$ ${cmd}`,
+        `> command not found. try "help"`,
+      ]);
+    }
+  }, [inputValue]);
+
   return (
     <section
       id="hero"
       style={{ background: "var(--bg-primary)" }}
-      className="min-h-[85vh] flex items-center justify-center px-4 py-12"
+      className="min-h-[85vh] flex items-center justify-center px-4 py-16"
     >
       <div className="max-w-2xl w-full mx-auto">
 
@@ -95,7 +146,6 @@ export default function Hero() {
             >
               Rohit Kalita
             </h1>
-            {/* Accent underline */}
             <motion.div
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
@@ -144,29 +194,23 @@ export default function Hero() {
               fontFamily: "var(--font-jetbrains), monospace",
             }}
           >
-            {displayedLines.map((line, idx) => {
-              const isLastLine = idx === LINES.length - 1;
-              const isComplete = idx < currentLineIdx || done;
+            {/* Typewriter lines */}
+            {displayedLines.map((line, idx) => (
+              <div key={idx} className="leading-relaxed text-sm md:text-base lg:text-lg">
+                {line.startsWith(">") ? (
+                  <>
+                    <span style={{ color: "var(--accent)" }}>&gt;</span>
+                    <span style={{ color: "var(--terminal-text)" }}>
+                      {line.slice(1)}
+                    </span>
+                  </>
+                ) : (
+                  <span style={{ color: "var(--terminal-text)" }}>{line}</span>
+                )}
+              </div>
+            ))}
 
-              return (
-                <div key={idx} className="leading-relaxed text-sm md:text-base lg:text-lg">
-                  {line.startsWith(">") ? (
-                    <>
-                      <span style={{ color: "var(--accent)" }}>&gt;</span>
-                      <span style={{ color: "var(--terminal-text)" }}>
-                        {line.slice(1)}
-                        {isLastLine && isComplete && done && (
-                          <span className="cursor-blink ml-1">▮</span>
-                        )}
-                      </span>
-                    </>
-                  ) : (
-                    <span style={{ color: "var(--terminal-text)" }}>{line}</span>
-                  )}
-                </div>
-              );
-            })}
-
+            {/* Blinking cursor while typing */}
             {!done && currentLineIdx < LINES.length && (
               <div className="leading-relaxed">
                 {displayedLines[currentLineIdx] !== undefined ? null : (
@@ -174,6 +218,47 @@ export default function Hero() {
                 )}
               </div>
             )}
+
+            {/* Command output */}
+            {terminalOutput.map((line, idx) => (
+              <div
+                key={`out-${idx}`}
+                className="leading-relaxed text-sm md:text-base"
+                style={{ color: line.startsWith("$") ? "var(--text-secondary)" : "var(--accent)" }}
+              >
+                {line}
+              </div>
+            ))}
+
+            {/* Interactive input */}
+            <AnimatePresence>
+              {showInput && (
+                <motion.form
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.4 }}
+                  onSubmit={handleCommand}
+                  className="flex items-center gap-2 mt-3 leading-relaxed text-sm md:text-base"
+                >
+                  <span style={{ color: "var(--accent)" }}>$</span>
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    placeholder='type "projects" or "help"'
+                    autoComplete="off"
+                    spellCheck={false}
+                    className="flex-1 bg-transparent outline-none caret-blue-500"
+                    style={{
+                      color: "var(--terminal-text)",
+                      fontFamily: "var(--font-jetbrains), monospace",
+                      fontSize: "inherit",
+                    }}
+                  />
+                </motion.form>
+              )}
+            </AnimatePresence>
           </div>
         </motion.div>
 
@@ -184,7 +269,13 @@ export default function Hero() {
         >
           <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
             scroll to see what I&apos;ve built{" "}
-            <span className="inline-block animate-bounce">↓</span>
+            <motion.span
+              className="inline-block"
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 0.6, repeat: 2, ease: "easeInOut" }}
+            >
+              ↓
+            </motion.span>
           </p>
         </div>
       </div>

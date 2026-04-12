@@ -15,29 +15,38 @@ const decisions: Decision[] = [
   {
     id: 1,
     question:
-      "You're the PM for a digital gold product. The buy drawer opens — which input method do you default to?",
-    options: ["Grams First", "Rupees First"],
-    shipped: "Rupees First",
+      "Users' gold sell transactions are failing because the UPI mapper service returns inactive VPAs. You need to fix this fast. What's your approach?",
+    options: ["Fix the mapper service at source", "Local fallback + real-time validation"],
+    shipped: "Local fallback + real-time validation",
     reasoning:
-      "Users think in rupees, not grams. When someone says \"I want to invest ₹500\", making them convert to grams adds cognitive load. Rupees-first reduces friction at the highest-intent moment. Data confirmed: rupee-first users completed purchases at a higher rate.",
+      "Fixing the mapper is the \"right\" answer on paper — but you don't own that service, and every day it stays broken, users lose trust in selling gold. A locally stored fallback VPA with a real-time validation check via payment switch solved the problem at our layer. A 50ms check that prevents a failed payout is worth more than a fast payout that lands in pending. Result: 27% reduction in sell pending failures — without waiting on another team's roadmap.",
   },
   {
     id: 2,
     question:
-      "A user upgrades their locker. The weight difference is 0.0001g — too small to show. What do you display on the success screen?",
-    options: ["Success Icon Only", "Show the 0.0001g anyway"],
-    shipped: "Success Icon Only",
+      "KYC completion is tanking. Users are getting stuck after Step 1. The obvious fix: shorten the KYC flow. Do you?",
+    options: ["Shorten the KYC flow", "Investigate why Step 1 is failing"],
+    shipped: "Investigate why Step 1 is failing",
     reasoning:
-      "Showing 0.0001g would technically be accurate but practically confusing. Users upgraded for the tier benefit, not a gram count. A clean success state with the new tier name communicates value. Accuracy that confuses is worse than simplicity that clarifies.",
+      "Shorter KYC sounds conversion-friendly until you realise it means weaker identity verification — a compliance and fraud risk in a financial product. The real problem: users entered incorrect PAN/Aadhaar details in Step 1 and had no way to go back. Solution: let users edit with limited retries + clear guidance on name matching. No compliance shortcuts, no fraud exposure. Result: 5x increase in KYC completion. When conversion drops, resist the instinct to simplify — diagnose first.",
   },
   {
     id: 3,
     question:
-      "Your campaign has a ₹50 cashback reward. Legal needs 8 bullet T&C. Where do you put them?",
-    options: ["Show inline, before CTA", "Show in expandable section below"],
-    shipped: "Show in expandable section below",
+      "Your event pages convert 13% higher than the standard landing page. A big sale event is coming up. Do you make the event page the default for all users?",
+    options: ["Keep standard landing, promote via banner", "Swap default to event page"],
+    shipped: "Swap default to event page",
     reasoning:
-      "T&C before the CTA creates anxiety before excitement. Lead with the reward, then let users who want to dig in expand the T&C. Conversion-first, compliance-met. Legal was satisfied, users weren't scared off.",
+      "Banners are ignorable — users develop banner blindness in 48 hours. During high-intent periods, the user's mental model already matches the event context: they came to buy, the event page is built to sell. Swapping the default isn't aggressive — it's aligned. Don't promote urgency inside a relaxed page — make the whole experience match the moment. Result: +13% conversion, +32% GMV.",
+  },
+  {
+    id: 4,
+    question:
+      "Buy button CTR drops at the top of funnel. Your team ships a floating CTA widget that looks promising in early data. When do you scale it?",
+    options: ["Scale at first sign of positive lift", "Hold for 2x improvement on limited cohort"],
+    shipped: "Hold for 2x improvement on limited cohort",
+    reasoning:
+      "Scaling early feels productive but is how you ship false positives to 100% of users. A CTA change affects the entire downstream funnel — conversion, payment success, trust, retention. Requiring 2x improvement on a limited cohort before scaling ensures the lift is real, not noise. If the change can't clear a high bar on a small group, it won't hold at scale. Patience at the experiment stage saves you from rollbacks at the production stage.",
   },
 ];
 
@@ -120,8 +129,8 @@ export default function DecisionSimulator() {
                 style={{ color: "var(--text-secondary)" }}
               >
                 Every decision above shipped to real users. Product management
-                is a series of bets — the goal is to make them with data, not
-                just instinct.
+                is a series of bets — data tells you where to look, judgment and instinct
+                tells you what to ship.
               </p>
               <button
                 onClick={handleRestart}

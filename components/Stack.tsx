@@ -2,21 +2,37 @@
 
 import { motion } from "framer-motion";
 
+function ToolPill({ name }: { name: string }) {
+  return (
+    <motion.span
+      className="px-3 py-1 rounded-full text-sm cursor-default"
+      style={{
+        background: "#1E1E1E",
+        color: "var(--text-secondary)",
+        border: "1px solid transparent",
+      }}
+      whileHover={{
+        borderColor: "rgba(59,130,246,0.3)",
+        color: "var(--accent-hover)",
+      }}
+      transition={{ duration: 0.15 }}
+    >
+      {name}
+    </motion.span>
+  );
+}
+
 const tools = [
-  "Jira",
-  "Superset",
   "SQL",
+  "Jira",
   "Figma",
   "CleverTap",
-  "MoEngage",
-  "Claude / LLMs",
-  "Google Sheets",
+  "Claude / Cursor and other LLMs",
   "Confluence",
-  "Slack",
 ];
 
 const beliefs = [
-  "Data over opinions, always.",
+  "Data informs, judgment decides.",
   "Ship fast, learn faster.",
   "The best PRD is the one the engineer didn't need to read twice.",
   "Hard work isn't a cliché — it's a competitive advantage.",
@@ -54,27 +70,7 @@ export default function Stack() {
               </h3>
               <div className="flex flex-wrap gap-2">
                 {tools.map((tool) => (
-                  <span
-                    key={tool}
-                    className="px-3 py-1 rounded-full text-sm transition-all"
-                    style={{
-                      background: "#1E1E1E",
-                      color: "var(--text-secondary)",
-                    }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.border =
-                        "1px solid rgba(59,130,246,0.3)";
-                      (e.currentTarget as HTMLElement).style.color =
-                        "var(--accent-hover)";
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.border = "";
-                      (e.currentTarget as HTMLElement).style.color =
-                        "var(--text-secondary)";
-                    }}
-                  >
-                    {tool}
-                  </span>
+                  <ToolPill key={tool} name={tool} />
                 ))}
               </div>
             </div>

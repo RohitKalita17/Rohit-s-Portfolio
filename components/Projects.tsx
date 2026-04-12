@@ -1,115 +1,136 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 type Project = {
   id: string;
-  title: string;
+  slug: string;
+  label: string;
   problem: string;
-  impact: string;
-  teams: string;
-  timeline: string;
+  company: string;
+  tags: string[];
 };
 
 const projects: Project[] = [
   {
     id: "01",
-    title: "Physical Gold Coin Redemption",
+    slug: "gold-rush",
+    label: "Gold Rush — Paytm",
     problem:
-      "How do you let users turn digital gold into a physical coin they can hold?",
-    impact: "End-to-end 4-API flow across custodian, logistics, and payments",
-    teams: "7",
-    timeline: "3 months",
+      "A leaderboard for gold investors. Can gamification turn passive savers into active participants — at scale?",
+    company: "Paytm",
+    tags: ["Gamification", "Gold", "Growth"],
   },
   {
     id: "02",
-    title: "Gold Rush Gamified Campaign",
+    slug: "craft",
+    label: "CRAFT — Paytm",
     problem:
-      "Can gamification drive gold purchases in a low-engagement segment?",
-    impact: "Campaign mechanics across TDS constraints and complex T&C",
-    teams: "5",
-    timeline: "6 weeks",
+      "Consumer issues compound for days before anyone acts. What if the system could diagnose, prioritize, and write the fix?",
+    company: "Paytm",
+    tags: ["LLM", "Agentic", "Product Ops"],
   },
   {
     id: "03",
-    title: "Locker Upgrade UX",
-    problem: "A 0.0001g difference shouldn't confuse the user.",
-    impact: "UX micro-decision with macro conversion impact",
-    teams: "3",
-    timeline: "2 weeks",
+    slug: "digital-silver",
+    label: "Digital Silver — Paytm",
+    problem:
+      "Launching an entirely new asset class from zero. How do you get users to trust and invest in something they've never heard of?",
+    company: "Paytm",
+    tags: ["0→1", "Silver", "Fintech"],
   },
   {
     id: "04",
-    title: "AI / LLM Exploration",
-    problem: "Personal project: understanding LLMs from the inside out.",
-    impact: "Work in progress",
-    teams: "—",
-    timeline: "Ongoing",
+    slug: "multiple-sips-goals",
+    label: "Multiple SIPs + Goals — Paytm",
+    problem:
+      "SIPs felt like a forgotten autopay, not a savings habit. Could giving them a purpose actually make people care?",
+    company: "Paytm",
+    tags: ["SIP", "Retention", "UX"],
+  },
+  {
+    id: "05",
+    slug: "meera-jewellery",
+    label: "Meera Jewellery — Plus Gold",
+    problem:
+      "What if your digital gold balance could buy you real jewellery? Building the bridge between savings and spend.",
+    company: "Plus Gold",
+    tags: ["E-commerce", "Gold", "Jewellery"],
   },
 ];
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({ project, index, isLast }: { project: Project; index: number; isLast: boolean }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, ease: "easeOut", delay: index * 0.1 }}
-      whileHover={{ y: -4, boxShadow: "0 8px 24px rgba(0,0,0,0.4)" }}
-      className="rounded-r-lg p-5 md:p-6 cursor-default transition-colors"
-      style={{
-        borderLeft: "4px solid var(--accent)",
-        background: "#141414",
-      }}
+      className={`${isLast ? "md:col-span-2" : ""} h-full`}
     >
-      <p
-        className="text-xs uppercase tracking-wider"
-        style={{
-          color: "var(--text-tertiary)",
-          fontFamily: "var(--font-jetbrains), monospace",
-        }}
-      >
-        CASE FILE #{project.id}
-      </p>
-      <h3
-        className="font-bold text-lg mt-2"
-        style={{ color: "var(--text-primary)" }}
-      >
-        {project.title}
-      </h3>
-      <p
-        className="mt-2 text-sm leading-relaxed"
-        style={{ color: "var(--text-secondary)" }}
-      >
-        {project.problem}
-      </p>
-
-      <div className="mt-4 text-sm">
-        <span style={{ color: "var(--text-secondary)" }}>Impact: </span>
-        <span style={{ color: "var(--text-primary)" }}>{project.impact}</span>
-      </div>
-      <div
-        className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-sm"
-        style={{ color: "var(--text-secondary)" }}
-      >
-        <span>
-          Teams:{" "}
-          <span style={{ color: "var(--text-primary)" }}>{project.teams}</span>
-        </span>
-        <span>
-          · Timeline:{" "}
-          <span style={{ color: "var(--text-primary)" }}>{project.timeline}</span>
-        </span>
-      </div>
-
-      <div className="mt-4">
-        <span
-          className="text-sm"
-          style={{ color: "var(--text-tertiary)" }}
+      <Link href={`/cases/${project.slug}`} className="block group h-full">
+        <motion.div
+          whileHover={{ y: -4, boxShadow: "0 0 20px rgba(59,130,246,0.15), 0 8px 24px rgba(0,0,0,0.4)", borderColor: "rgba(59,130,246,0.4)" }}
+          className="rounded-lg p-5 md:p-6 h-full flex flex-col"
+          style={{
+            border: "1px solid #2a2a2a",
+            background: "#141414",
+            transition: "border-color 0.2s, box-shadow 0.2s, transform 0.2s",
+          }}
         >
-          (Case study coming soon)
-        </span>
-      </div>
+          <p
+            className="text-xs uppercase tracking-wider"
+            style={{
+              color: "var(--text-tertiary)",
+              fontFamily: "var(--font-jetbrains), monospace",
+            }}
+          >
+            CASE FILE #{project.id}
+          </p>
+          <h3
+            className="font-bold text-lg mt-2 group-hover:text-blue-400 transition-colors"
+            style={{ color: "var(--text-primary)" }}
+          >
+            {project.label}
+          </h3>
+          <p
+            className="mt-2 text-sm leading-relaxed"
+            style={{ color: "var(--text-secondary)" }}
+          >
+            {project.problem}
+          </p>
+
+          <div className="mt-4 flex flex-wrap gap-2">
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-xs px-2 py-0.5 rounded-full"
+                style={{
+                  background: "var(--bg-tertiary)",
+                  color: "var(--text-tertiary)",
+                  fontFamily: "var(--font-jetbrains), monospace",
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <div className="mt-auto pt-4 flex items-center justify-between">
+            <span className="text-xs" style={{ color: "var(--text-tertiary)" }}>
+              {project.company}
+            </span>
+            <span
+              className="text-xs flex items-center gap-1 group-hover:gap-2 transition-all"
+              style={{ color: "var(--accent)" }}
+            >
+              Open case file
+              <span aria-hidden>→</span>
+            </span>
+          </div>
+        </motion.div>
+      </Link>
     </motion.div>
   );
 }
@@ -137,13 +158,13 @@ export default function Projects() {
             className="mt-2 text-base"
             style={{ color: "var(--text-secondary)" }}
           >
-            Work I&apos;ve done — and what I learned doing it
+            Problems I was handed — and what I actually did about them
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
           {projects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+            <ProjectCard key={project.id} project={project} index={index} isLast={index === projects.length - 1 && projects.length % 2 !== 0} />
           ))}
         </div>
       </div>

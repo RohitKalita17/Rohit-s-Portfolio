@@ -24,6 +24,9 @@ export const metadata: Metadata = {
       "Product Manager building at Paytm. This portfolio is a product — interactive, opinionated, and built to show how I think.",
     type: "website",
   },
+  other: {
+    "theme-color": "#0A0A0A",
+  },
 };
 
 export default function RootLayout({

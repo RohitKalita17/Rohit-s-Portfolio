@@ -13,13 +13,8 @@ const diffLines: DiffLine[] = [
   { type: "meta", content: "// rohit_career.js", tooltip: null },
   {
     type: "remove",
-    content: "Finance & Actuarial background",
-    tooltip: "Started here. Grateful for the data instincts it gave me.",
-  },
-  {
-    type: "remove",
-    content: "Textbook frameworks and theory",
-    tooltip: "Useful foundation. But frameworks without context are just templates.",
+    content: "BBA + textbook business frameworks",
+    tooltip: "Gave me structured thinking. But structured thinking without real problems is just theory.",
   },
   {
     type: "remove",
@@ -33,12 +28,17 @@ const diffLines: DiffLine[] = [
   },
   {
     type: "add",
-    content: "Tearing apart products became a daily habit",
-    tooltip: 'Every app I use, I can\'t stop asking "why did they build it this way?"',
+    content: "Startup intern → full-time PM: no playbooks, just problems",
+    tooltip: "You either figure it out or you don't. I figured it out.",
   },
   {
     type: "add",
-    content: "Building fintech products at Paytm (Gold & Silver)",
+    content: "Paytm: real users, real money, real consequences",
+    tooltip: "A completely different scale and pace. Forces clarity whether you're ready or not.",
+  },
+  {
+    type: "add",
+    content: "Building Gold & Silver products at Paytm",
     tooltip: "Where real constraints meet real users. Best classroom I've found.",
   },
   {
@@ -48,22 +48,23 @@ const diffLines: DiffLine[] = [
   },
   {
     type: "add",
-    content: "Side quest: falling for LLMs — from using them to understanding how they work",
+    content: "Side quest: going deeper into LLMs — from using to understanding",
     tooltip: "Not trying to be trendy. Genuinely obsessed with how these systems think.",
   },
   {
     type: "add",
     content: "Hard work isn't a cliché, it's a competitive advantage",
-    tooltip: "Most people don't actually work hard. The ones who do stand out.",
+    tooltip: "Most people don't actually do the unglamorous work. The ones who do stand out.",
   },
 ];
 
 const storyParagraphs = [
-  "I didn't start in product. My background is Finance and Actuarial science — which sounds like the least obvious path into PM, but it quietly gave me something most people in the role don't have: a genuine comfort with data, numbers, and the kind of structured thinking that survives contact with reality.",
-  "The shift happened when I joined a Product Fellowship. That's where I caught the bug — the compulsive \"why is this built this way?\" question that I still haven't been able to turn off. I started tearing apart every app I used. Not casually. Obsessively. Reverse-engineering decisions, second-guessing flows, wondering what data or constraint led someone to that choice.",
-  "That obsession led me to Paytm, where I now build Gold and Silver products. The complexity here is unlike anything you read in a PM book — 7 cross-functional teams, regulatory constraints, user psychology across income segments, and edge cases that make you rethink basic assumptions. Every shipped feature taught me something the fellowship couldn't.",
-  "Along the way, I fell for LLMs. Not as a trend to stay current on, but as a genuine intellectual rabbit hole — understanding how these systems actually reason, where they fail, and what it means to build products on top of them. I went from heavy user to wanting to understand the internals.",
-  "The through-line across all of it: hard work isn't a cliché. It's the actual competitive advantage. Most people think about building great products. Fewer do the unglamorous work of getting there.",
+  "I'm originally from Guwahati, Assam. I went on to complete my BBA — which gave me a structured way of thinking about business, but more importantly, a lens to understand how decisions actually play out in the real world, not just on paper.",
+  "The real shift happened when I joined a Product Fellowship. That's where things clicked. Not in a dramatic, overnight way — but through a growing curiosity I couldn't ignore. I started questioning everything: why does this flow exist? What trade-off led to this decision? What constraint am I not seeing? Products stopped being things I used, and started becoming things I tried to decode.",
+  "That curiosity led me to a startup, where I joined as a Product Intern and eventually transitioned into a full-time role. This was where the real learning happened. No playbooks, no perfectly defined roles — just problems that needed solving. I learned how products are actually built from scratch: balancing user needs, business goals, and technical realities. You don't get to hide behind theory in an environment like that. You either figure it out, or you don't.",
+  "From there, I moved to Paytm — a completely different scale, and a completely different pace. The environment here forces clarity. You're dealing with real users, real money, and very little room for error. Things move fast, expectations are high, and every decision has consequences. It's the kind of place that sharpens your thinking whether you're ready for it or not.",
+  "Lately, I've been going deeper into LLMs — not just using them, but trying to understand how they actually work and how they can be used to build better products. It's less about staying current and more about exploring a space that feels like it's reshaping how we think about building altogether.",
+  "The thread across all of this is simple: curiosity that doesn't switch off, and a bias toward doing the work. Because at the end of the day, product thinking sounds good in theory — but it's the unglamorous, iterative, figure-it-out-as-you-go process that actually builds anything worth using.",
 ];
 
 function DiffLineRow({ line, lineNumber }: { line: DiffLine; lineNumber: number }) {
