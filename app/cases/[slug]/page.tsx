@@ -65,7 +65,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
         </div>
       </nav>
 
-      <article className="max-w-3xl mx-auto px-6 md:px-10 py-14">
+      <article className="max-w-2xl mx-auto px-6 md:px-10 py-14">
         {/* Case file number + tags */}
         <div className="flex flex-wrap items-center gap-3">
           <span
@@ -123,14 +123,14 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
 
         {/* Headline */}
         <p
-          className="mt-12 text-xl md:text-2xl font-semibold leading-snug"
-          style={{ color: "var(--text-primary)" }}
+          className="mt-12 text-2xl md:text-3xl font-bold leading-snug"
+          style={{ color: "var(--text-primary)", letterSpacing: "-0.02em" }}
         >
           {c.headline}
         </p>
 
         {/* Divider */}
-        <hr className="mt-10 border-0 border-t" style={{ borderColor: "#1e1e1e" }} />
+        <hr className="mt-12 border-0 border-t" style={{ borderColor: "#1e1e1e" }} />
 
         {/* Context */}
         <Section title="Context">
@@ -254,13 +254,25 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="mt-10">
-      <h2
-        className="text-xs uppercase tracking-wider mb-4"
-        style={{ color: "var(--text-tertiary)", fontFamily: "var(--font-jetbrains), monospace" }}
-      >
-        {title}
-      </h2>
+    <div className="mt-14">
+      <div className="flex items-center gap-3 mb-5">
+        <span
+          style={{
+            display: "inline-block",
+            width: "3px",
+            height: "14px",
+            background: "var(--accent)",
+            borderRadius: "2px",
+            flexShrink: 0,
+          }}
+        />
+        <h2
+          className="text-xs uppercase tracking-widest font-semibold"
+          style={{ color: "#888888", fontFamily: "var(--font-jetbrains), monospace" }}
+        >
+          {title}
+        </h2>
+      </div>
       {children}
     </div>
   );
