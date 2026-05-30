@@ -102,24 +102,30 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
           {c.company}
         </p>
 
-        {/* Image placeholder */}
-        <div
-          className="mt-10 w-full rounded-xl flex flex-col items-center justify-center gap-3"
-          style={{
-            height: "360px",
-            background: "var(--bg-secondary)",
-            border: "2px dashed #2a2a2a",
-          }}
-        >
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#333" strokeWidth="1.5">
-            <rect x="3" y="3" width="18" height="18" rx="2" />
-            <circle cx="8.5" cy="8.5" r="1.5" />
-            <path d="M21 15l-5-5L5 21" />
-          </svg>
-          <p className="text-sm" style={{ color: "var(--text-tertiary)", fontFamily: "var(--font-jetbrains), monospace" }}>
-            Product screenshots coming soon
-          </p>
-        </div>
+        {/* Case image */}
+        {c.image ? (
+          <div className="mt-10 w-full rounded-xl overflow-hidden">
+            <img
+              src={c.image}
+              alt={`${c.label} product screens`}
+              style={{ width: "100%", height: "auto", display: "block" }}
+            />
+          </div>
+        ) : (
+          <div
+            className="mt-10 w-full rounded-xl flex flex-col items-center justify-center gap-3"
+            style={{ height: "360px", background: "var(--bg-secondary)", border: "2px dashed #2a2a2a" }}
+          >
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#333" strokeWidth="1.5">
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <path d="M21 15l-5-5L5 21" />
+            </svg>
+            <p className="text-sm" style={{ color: "var(--text-tertiary)", fontFamily: "var(--font-jetbrains), monospace" }}>
+              Product screenshots coming soon
+            </p>
+          </div>
+        )}
 
         {/* Headline */}
         <p
@@ -146,8 +152,8 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
           </p>
         </Section>
 
-        {/* What I Did */}
-        <Section title="What I Did">
+        {/* What We Did */}
+        <Section title="What We Did">
           <ul className="space-y-4">
             {c.what_i_did.map((item, i) => (
               <li key={i} className="flex gap-3">
@@ -176,9 +182,23 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
         </Section>
 
         {/* Learnings */}
-        <Section title="What I Took Away">
+        <Section title="What We Took Away">
           <p className="text-lg leading-8" style={{ color: "#EFEFEF" }}>
             {c.learnings}
+          </p>
+        </Section>
+
+        {/* Honest Take */}
+        <Section title="The Honest Take">
+          <p
+            className="text-lg leading-8 px-5 py-4 rounded-lg"
+            style={{
+              color: "#EFEFEF",
+              background: "rgba(251,191,36,0.06)",
+              borderLeft: "3px solid rgba(251,191,36,0.35)",
+            }}
+          >
+            {c.honest_take}
           </p>
         </Section>
 

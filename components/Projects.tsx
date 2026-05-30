@@ -42,15 +42,24 @@ const projects: Project[] = [
   },
   {
     id: "04",
-    slug: "multiple-sips-goals",
-    label: "Multiple SIPs + Goals — Paytm",
+    slug: "multiple-sips-targets",
+    label: "Multiple SIPs + Targets — Paytm",
     problem:
-      "SIPs felt like a forgotten autopay, not a savings habit. Could giving them a purpose actually make people care?",
+      "SIPs felt like a forgotten autopay, not a savings habit. Could giving them something to aim at make people care?",
     company: "Paytm",
     tags: ["SIP", "Retention", "UX"],
   },
   {
     id: "05",
+    slug: "gold-coins",
+    label: "Gold Coins — Paytm",
+    problem:
+      "What if every payment earned you gold? Building Paytm's first coin-based loyalty loop — from earning to redemption.",
+    company: "Paytm",
+    tags: ["Loyalty", "Retention", "Gold"],
+  },
+  {
+    id: "06",
     slug: "meera-jewellery",
     label: "Meera Jewellery — Plus Gold",
     problem:
