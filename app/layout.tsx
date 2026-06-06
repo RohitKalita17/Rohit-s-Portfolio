@@ -17,6 +17,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.rohitkalita.com"),
   title: "Rohit | Product Manager",
   description:
     "Product Manager building at Paytm. This portfolio is a product — interactive, opinionated, and built to show how I think.",
