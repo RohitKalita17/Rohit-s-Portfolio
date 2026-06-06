@@ -61,6 +61,17 @@ body {
   color: var(--terminal-cursor);
 }
 
+/* Solid block cursor for the command prompt */
+.cursor-block {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  margin-left: 4px;
+  transform: translateY(2px);
+  background: var(--accent);
+  animation: blink 1s step-end infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

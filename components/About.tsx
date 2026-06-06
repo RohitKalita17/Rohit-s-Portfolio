@@ -48,8 +48,13 @@ const diffLines: DiffLine[] = [
   },
   {
     type: "add",
-    content: "Side quest: going deeper into LLMs — from using to understanding",
+    content: "Going deeper into LLMs — from using, to understanding, to building",
     tooltip: "Not trying to be trendy. Genuinely obsessed with how these systems think.",
+  },
+  {
+    type: "add",
+    content: "Built agentic AI workflows at Paytm",
+    tooltip: "Turns out the best way to understand these systems is to build with them. The case files have the details.",
   },
   {
     type: "add",
@@ -63,7 +68,7 @@ const storyParagraphs = [
   "The real shift happened when I joined a Product Fellowship. That's where things clicked. Not in a dramatic, overnight way — but through a growing curiosity I couldn't ignore. I started questioning everything: why does this flow exist? What trade-off led to this decision? What constraint am I not seeing? Products stopped being things I used, and started becoming things I tried to decode.",
   "That curiosity led me to a startup, where I joined as a Product Intern and eventually transitioned into a full-time role. This was where the real learning happened. No playbooks, no perfectly defined roles — just problems that needed solving. I learned how products are actually built from scratch: balancing user needs, business goals, and technical realities. You don't get to hide behind theory in an environment like that. You either figure it out, or you don't.",
   "From there, I moved to Paytm — a completely different scale, and a completely different pace. The environment here forces clarity. You're dealing with real users, real money, and very little room for error. Things move fast, expectations are high, and every decision has consequences. It's the kind of place that sharpens your thinking whether you're ready for it or not.",
-  "Lately, I've been going deeper into LLMs — not just using them, but trying to understand how they actually work and how they can be used to build better products. It's less about staying current and more about exploring a space that feels like it's reshaping how we think about building altogether.",
+  "Lately, I've been going deeper into LLMs — not just using them, but understanding how they work and building with them. At Paytm I've built internal AI workflows that carry a real product problem end to end. It's less about staying current and more about a space that's reshaping how we build altogether.",
   "The thread across all of this is simple: curiosity that doesn't switch off, and a bias toward doing the work. Because at the end of the day, product thinking sounds good in theory — but it's the unglamorous, iterative, figure-it-out-as-you-go process that actually builds anything worth using.",
 ];
 

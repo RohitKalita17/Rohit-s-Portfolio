@@ -7,8 +7,8 @@ const SECTIONS = [
   { id: "about", label: "Story" },
   { id: "experience", label: "Changelog" },
   { id: "projects", label: "Case Files" },
-  { id: "decisions", label: "How I Think" },
-  { id: "stack", label: "Stack" },
+  { id: "decisions", label: "Decision Simulator" },
+  { id: "stack", label: "How I Work" },
   { id: "footer", label: "Contact" },
 ];
 

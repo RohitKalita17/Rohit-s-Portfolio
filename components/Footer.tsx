@@ -3,7 +3,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Hammer, Bot, Coffee } from "lucide-react";
+import { MapPin, Hammer, Bot, Coffee, Check } from "lucide-react";
+
+const EMAIL = "rohitkalita05@gmail.com";
 
 function LinkedInIcon() {
   return (
@@ -39,13 +41,21 @@ const statusItems = [
 
 export default function Footer() {
   const [copied, setCopied] = useState(false);
+  const [showEmail, setShowEmail] = useState(false);
 
   const handleEmailClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    navigator.clipboard.writeText("rohitkalita05@gmail.com").then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+    navigator.clipboard
+      .writeText(EMAIL)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(() => {
+        // Clipboard unavailable (denied permission, non-HTTPS) — reveal the
+        // address so the user can still select and copy it manually.
+        setShowEmail(true);
+      });
   };
 
   return (
@@ -111,13 +121,13 @@ export default function Footer() {
                 </motion.a>
                 <motion.button
                   onClick={handleEmailClick}
-                  aria-label="Copy email"
+                  aria-label={copied ? "Email copied" : "Copy email"}
                   className="inline-flex cursor-pointer"
-                  whileHover={{ y: -2, color: "#3B82F6" }}
+                  whileHover={{ y: -2, color: copied ? "#3B82F6" : "#3B82F6" }}
                   transition={{ duration: 0.15 }}
-                  style={{ color: "#444", background: "none", border: "none" }}
+                  style={{ color: copied ? "#3B82F6" : "#444", background: "none", border: "none" }}
                 >
-                  <MailIcon />
+                  {copied ? <Check size={22} strokeWidth={2.4} /> : <MailIcon />}
                 </motion.button>
                 <motion.a
                   href="https://www.instagram.com/rohitkalita__?igsh=NTdkbTd3bmo2bnhv&utm_source=qr"
@@ -134,18 +144,18 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Copied disclaimer */}
+            {/* Copy feedback, plus a selectable fallback if the clipboard fails */}
             <AnimatePresence>
-              {copied && (
+              {(copied || showEmail) && (
                 <motion.p
                   initial={{ opacity: 0, y: -4 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -4 }}
                   transition={{ duration: 0.2 }}
-                  className="text-xs"
+                  className="text-xs select-text"
                   style={{ color: "#3B82F6", fontFamily: "var(--font-jetbrains), monospace" }}
                 >
-                  email copied to clipboard
+                  {copied ? "✓ email copied to clipboard" : EMAIL}
                 </motion.p>
               )}
             </AnimatePresence>

@@ -19,14 +19,14 @@ const versions: Version[] = [
     version: "v3.0",
     company: "Paytm",
     period: "Jan 2025 – Present",
-    role: "Associate Product Manager · Gold & Silver",
+    role: "Associate Product Manager · Paytm Gold",
     shipped: [
-      "Gold Coins loyalty program — daily gold transactions up 30%+, from coin redemptions and a halo on manual purchases",
+      "Gold Coins loyalty program — daily gold transactions up ~35%, with manual gold purchases up ~17% alongside coin redemptions",
       "Digital Silver launched from zero — revenue came in 30% above what we projected, without cannibalising Gold",
       "Multiple SIPs + Targets — 25% more users starting a new SIP after launch",
-      "CRAFT: support signal → structured Jira ticket in under 60 seconds (was 30–45 min)",
+      "CRAFT — an LLM-powered PM workspace, scan KPIs and funnels, surface growth ideas from live signals",
       "Gold Rush — 28% more lump sum investments during the campaign vs. the 4 weeks before it",
-      "Week-4 retention up 15% after a portfolio visibility redesign",
+      "Week-4 Repeat user retention up 15% after a portfolio visibility redesign",
     ],
     lesson:
       "Building on real money taught me that precision isn't perfectionism — it's how you avoid breaking trust with millions of users. The wrong call ships to everyone, and you see it in the numbers the next morning.",

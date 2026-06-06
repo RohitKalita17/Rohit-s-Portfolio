@@ -44,7 +44,7 @@ export const cases: CaseFile[] = [
   {
     id: "02",
     slug: "craft",
-    label: "CRAFT",
+    label: "CRAFT(Customer Response Analysis & Feature Translator)",
     company: "Paytm",
     tags: ["LLM", "Agentic", "Product Ops"],
     headline: "Users tell us the moment something breaks. The slow part is everything after — making sense of that response, and turning it into a fix. What if the gap between a user's reaction and a shipped change closed to almost nothing?",
@@ -54,18 +54,19 @@ export const cases: CaseFile[] = [
       "The CST Dashboard solved 'what's wrong'. It didn't touch the rest of the PM cycle — and that cycle was where the time went. Reading a user reaction back to its root cause meant manually digging through funnels, the data warehouse, and the codebase. Turning insight into a Jira ticket meant 30–45 minutes of writing from memory, and the tickets that came out were often too vague to act on. The bet was that a single workspace could carry a PM from a user's response all the way to an engineer-ready change — not just automate the typing at the end.",
     what_i_did: [
       "Built the CST Dashboard as the starting point: ingests live consumer conversations, clusters them by issue type, and ranks severity with LLMs — giving the team real-time visibility into what's actually hurting users.",
-      "Designed the CRAFT UI on top — a PM workspace, not a ticket tool: scan KPIs and funnels, surface growth ideas straight from the signals coming through, and initiate Jira in one place. The point was to cover the whole loop, from spotting a reaction to shipping a fix.",
-      "Built the agentic chat at the centre of the CRAFT UI — a PM chats in plain English and can either create a Jira ticket on the spot, or kick off a PRD: a concise use case in a standardised format. Because it reads the repo, it understands what a given change actually touches, and reverts with the right questions and edge cases before anything gets written.",
+      "Designed CRAFT on top — a PM workspace, not a ticket tool: scan KPIs and funnels, surface growth ideas straight from the signals coming through, and initiate Jira in one place. The point was to cover the whole loop, from spotting a reaction to shipping a fix.",
+      "Built the agentic chat at the centre of CRAFT — a PM chats in plain English and can either create a Jira ticket on the spot, or kick off a PRD: a concise use case in a standardised format. Because it reads the repo, it understands what a given change actually touches, and reverts with the right questions and edge cases before anything gets written.",
       "Structured the Jira output into a real framework — Context, detailed stories, and broken-down engineering tasks with acceptance criteria — so tickets land ready to execute and engineers spend their time building, not decoding.",
       "As an internal tool for bringing this onto the file system matured, we extended the same workflow into an IDE-driven setup: multiple commands that orchestrate several agents, each directed through markdown files — so a PM can run the entire cycle from an IDE using Claude Code.",
       "Built the knowledge base — the piece the older setup was missing. The earlier version reached for funnels, called the repo directly to find gaps, and queried the data warehouse live every time. We grounded it instead: schemas attached, funnel logic explained step by step, and scripts to pull repo details — so the agents diagnose against the real product, not a guess.",
     ],
     outcome:
-      "A PM now has two ways in: the CRAFT UI to read KPIs, run funnel analysis, chat to draft a ticket or a repo-aware PRD — or the file-system setup in an IDE, driving the same cycle through Claude Code. Funnel analysis that used to be a manual dig is grounded in real schemas and data, so a drop gets explained, not just spotted. Ticket-writing collapsed from 30–45 minutes of vague notes to minutes of structured, engineer-ready work. The downstream effect is the one that matters: user reactions that used to compound for days get diagnosed and shipped faster, which users feel as fewer broken flows and quicker fixes.",
+      "A PM now has two ways in: CRAFT to read KPIs, run funnel analysis, chat to draft a ticket or a repo-aware PRD — or the file-system setup in an IDE, driving the same cycle through Claude Code. Funnel analysis that used to be a manual dig is grounded in real schemas and data, so a drop gets explained, not just spotted. Ticket-writing collapsed from 30–45 minutes of vague notes to minutes of structured, engineer-ready work. A concrete example: CRAFT surfaced a spike in PAN–Aadhaar mismatch failures, traced it to the root cause, and drove a pre-check nudge that resolved it — exactly the kind of leak that used to compound silently for days before anyone connected the dots. The downstream effect is the one that matters: user reactions that used to compound for days get diagnosed and shipped faster, which users feel as fewer broken flows and quicker fixes.",
     learnings:
       "The leverage wasn't the chat or the ticket formatting — it was the knowledge base. An agent that doesn't understand the funnel, the schema, or the codebase gives you confident, generic answers. Once it was grounded in how the product actually works, the same model went from 'note-taker' to something that could genuinely diagnose. Grounding beat cleverness every time.",
     honest_take:
-      "The file-system tooling wasn't built from scratch by us — it was an internal effort we helped expand, and the orchestration layer was a shared lift. What we'd push on next is a feedback loop: let engineers rate each generated ticket so the knowledge base learns what 'good' means for this codebase and the diagnosis gets sharper over time.",
+      "What we'd push on next is a feedback loop: let engineers rate each generated ticket so the knowledge base learns what 'good' means for this codebase and the diagnosis gets sharper over time.",
+    image: "/cases/craft.png",
   },
 
   {
@@ -137,7 +138,7 @@ export const cases: CaseFile[] = [
       "Collaborated across several cross-functional teams to bring the pieces together — earning rules, balance, redemption, and showing coins consistently across the app's key discovery points (home, offers, passbook).",
     ],
     outcome:
-      "Gold Coins did more than drive loyalty — it grew the core business. Daily gold transactions rose more than 30%, driven both by users redeeming coins into real gold and by a lift in manual gold purchases alongside it. It became a new organic engine for gold awareness and acquisition across the wider Paytm ecosystem.",
+      "Gold Coins did more than drive loyalty — it grew the core business. Daily gold transactions rose ~35%, driven both by users redeeming coins into real gold and by a ~17% lift in manual gold purchases alongside it. It became a new organic engine for gold awareness and acquisition across the wider Paytm ecosystem.",
     learnings:
       "Building a loyalty currency means designing for the entire arc — not just the earning moment, but the moment a user realises their coins are actually worth something. Seeing the coin store fill up as the balance grew was a small detail that made that arc feel tangible.",
     honest_take:
