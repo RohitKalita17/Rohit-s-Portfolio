@@ -27,7 +27,7 @@ const projects: Project[] = [
     slug: "craft",
     label: "CRAFT — Paytm",
     problem:
-      "Consumer issues compound for days before anyone acts. What if the system could diagnose, prioritize, and write the fix?",
+      "Users tell us the moment something breaks. Making sense of that response and turning it into a fix takes days. What if that gap closed to almost nothing?",
     company: "Paytm",
     tags: ["LLM", "Agentic", "Product Ops"],
   },

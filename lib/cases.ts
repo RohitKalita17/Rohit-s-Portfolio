@@ -44,27 +44,28 @@ export const cases: CaseFile[] = [
   {
     id: "02",
     slug: "craft",
-    label: "CRAFT(Customer Response Analysis & Feature Translator)",
+    label: "CRAFT",
     company: "Paytm",
     tags: ["LLM", "Agentic", "Product Ops"],
-    headline: "Consumer issues compound for days before anyone acts. What if the system could diagnose, prioritize, and write the fix — before you even open Jira?",
+    headline: "Users tell us the moment something breaks. The slow part is everything after — making sense of that response, and turning it into a fix. What if the gap between a user's reaction and a shipped change closed to almost nothing?",
     context:
-      "PMs were spending 30–45 minutes manually writing each Jira ticket from memory, working off 1,000+ weekly support signals with no way to rank what was actually hurting users most. Issues compounded for days before reaching an engineering backlog — and the tickets that did arrive were often too vague to act on without back-and-forth.",
+      "It started with the CST Dashboard — where we began. The team was working off thousands of weekly support signals with no way to see what was actually hurting users, so we built a tool that ingested live consumer conversations, clustered them by issue, and ranked severity. For the first time we could see what was breaking in real time. But awareness was only the first step — the harder, slower part was everything after: making sense of why users were reacting, diagnosing the leaking funnel behind it, deciding what to build, and turning that into work engineers could pick up.",
     problem:
-      "I started by building the CST Dashboard — a tool that gave the team real-time visibility into what was breaking. That solved the awareness problem. But the real bet was that the last mile — turning insight into a ready-to-execute ticket — was worth more than better dashboards. Knowing what's wrong and being able to act on it are two different things.",
+      "The CST Dashboard solved 'what's wrong'. It didn't touch the rest of the PM cycle — and that cycle was where the time went. Reading a user reaction back to its root cause meant manually digging through funnels, the data warehouse, and the codebase. Turning insight into a Jira ticket meant 30–45 minutes of writing from memory, and the tickets that came out were often too vague to act on. The bet was that a single workspace could carry a PM from a user's response all the way to an engineer-ready change — not just automate the typing at the end.",
     what_i_did: [
-      "Built the CST Dashboard: ingests live consumer conversations from DevRev, clusters them by issue type, and ranks severity using LLMs — giving the team real-time visibility into what's actually hurting users.",
-      "Designed the 4-stage CRAFT pipeline on top: Capture (ingest signals) → Sense (cluster and rank) → Define (map to engineering scope) → Ship (auto-create Jira).",
-      "Defined the input sources: DevRev tickets, email threads, Slack messages, and CST Dashboard escalations — all flowing into one pipeline.",
-      "Structured the Jira output: Context, Technical Approach (numbered steps), Implementation Sub-tasks, Test Case Sub-tasks, Acceptance Criteria — every ticket ready for an engineer to pick up on day one.",
-      "Designed the AI agent chat interface — PMs can describe any issue in plain English and CRAFT drafts a complete, prioritized ticket with context, labels, and acceptance criteria.",
+      "Built the CST Dashboard as the starting point: ingests live consumer conversations, clusters them by issue type, and ranks severity with LLMs — giving the team real-time visibility into what's actually hurting users.",
+      "Designed the CRAFT UI on top — a PM workspace, not a ticket tool: scan KPIs and funnels, surface growth ideas straight from the signals coming through, and initiate Jira in one place. The point was to cover the whole loop, from spotting a reaction to shipping a fix.",
+      "Built the agentic chat at the centre of the CRAFT UI — a PM chats in plain English and can either create a Jira ticket on the spot, or kick off a PRD: a concise use case in a standardised format. Because it reads the repo, it understands what a given change actually touches, and reverts with the right questions and edge cases before anything gets written.",
+      "Structured the Jira output into a real framework — Context, detailed stories, and broken-down engineering tasks with acceptance criteria — so tickets land ready to execute and engineers spend their time building, not decoding.",
+      "As an internal tool for bringing this onto the file system matured, we extended the same workflow into an IDE-driven setup: multiple commands that orchestrate several agents, each directed through markdown files — so a PM can run the entire cycle from an IDE using Claude Code.",
+      "Built the knowledge base — the piece the older setup was missing. The earlier version reached for funnels, called the repo directly to find gaps, and queried the data warehouse live every time. We grounded it instead: schemas attached, funnel logic explained step by step, and scripts to pull repo details — so the agents diagnose against the real product, not a guess.",
     ],
     outcome:
-      "Consumer signal to structured Jira ticket in under 60 seconds, down from 30–45 minutes of manual PM work. The CST Dashboard gave the team real-time severity visibility for the first time. Vague, one-liner tickets dropped to near zero in the sprints after rollout — engineers spend time building, not decoding.",
+      "A PM now has two ways in: the CRAFT UI to read KPIs, run funnel analysis, chat to draft a ticket or a repo-aware PRD — or the file-system setup in an IDE, driving the same cycle through Claude Code. Funnel analysis that used to be a manual dig is grounded in real schemas and data, so a drop gets explained, not just spotted. Ticket-writing collapsed from 30–45 minutes of vague notes to minutes of structured, engineer-ready work. The downstream effect is the one that matters: user reactions that used to compound for days get diagnosed and shipped faster, which users feel as fewer broken flows and quicker fixes.",
     learnings:
-      "The hardest design decision was making CRAFT opinionated, not passive. A tool that just transcribes what you say isn't useful. CRAFT needed to tell you what matters, rank the priority, and flag when something can be ignored. That shift from 'note-taker' to 'analyst' is what made it worth building.",
+      "The leverage wasn't the chat or the ticket formatting — it was the knowledge base. An agent that doesn't understand the funnel, the schema, or the codebase gives you confident, generic answers. Once it was grounded in how the product actually works, the same model went from 'note-taker' to something that could genuinely diagnose. Grounding beat cleverness every time.",
     honest_take:
-      "What I'd add on day two: a feedback loop where engineers rate each auto-generated ticket — so the model learns what 'good' means for this specific codebase and gets better over time.",
+      "The file-system tooling wasn't built from scratch by us — it was an internal effort we helped expand, and the orchestration layer was a shared lift. What we'd push on next is a feedback loop: let engineers rate each generated ticket so the knowledge base learns what 'good' means for this codebase and the diagnosis gets sharper over time.",
   },
 
   {
