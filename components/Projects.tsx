@@ -10,6 +10,7 @@ type Project = {
   problem: string;
   company: string;
   tags: string[];
+  comingSoon?: boolean;
 };
 
 const projects: Project[] = [
@@ -57,6 +58,7 @@ const projects: Project[] = [
       "SIPs felt like a forgotten autopay, not a savings habit. Could giving them something to aim at make people care?",
     company: "Paytm",
     tags: ["SIP", "Retention", "UX"],
+    comingSoon: true,
   },
   {
     id: "06",
@@ -70,6 +72,92 @@ const projects: Project[] = [
 ];
 
 function ProjectCard({ project, index, isLast }: { project: Project; index: number; isLast: boolean }) {
+  const comingSoon = project.comingSoon;
+
+  const body = (
+    <motion.div
+      whileHover={
+        comingSoon
+          ? undefined
+          : { y: -4, boxShadow: "0 0 20px rgba(59,130,246,0.15), 0 8px 24px rgba(0,0,0,0.4)", borderColor: "rgba(59,130,246,0.4)" }
+      }
+      className="rounded-lg p-5 md:p-6 h-full flex flex-col"
+      style={{
+        border: "1px solid #2a2a2a",
+        background: "#141414",
+        opacity: comingSoon ? 0.6 : 1,
+        cursor: comingSoon ? "default" : "pointer",
+        transition: "border-color 0.2s, box-shadow 0.2s, transform 0.2s",
+      }}
+    >
+      <div className="flex items-center justify-between gap-2">
+        <p
+          className="text-xs uppercase tracking-wider"
+          style={{ color: "var(--text-tertiary)", fontFamily: "var(--font-jetbrains), monospace" }}
+        >
+          CASE FILE #{project.id}
+        </p>
+        {comingSoon && (
+          <span
+            className="text-xs uppercase tracking-wider px-2 py-0.5 rounded-full whitespace-nowrap"
+            style={{
+              color: "#FBBF24",
+              background: "rgba(251,191,36,0.12)",
+              border: "1px solid rgba(251,191,36,0.35)",
+              fontFamily: "var(--font-jetbrains), monospace",
+            }}
+          >
+            Coming soon
+          </span>
+        )}
+      </div>
+      <h3
+        className={`font-bold text-lg mt-2 transition-colors ${comingSoon ? "" : "group-hover:text-blue-400"}`}
+        style={{ color: "var(--text-primary)" }}
+      >
+        {project.label}
+      </h3>
+      <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+        {project.problem}
+      </p>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        {project.tags.map((tag) => (
+          <span
+            key={tag}
+            className="text-xs px-2 py-0.5 rounded-full"
+            style={{
+              background: "var(--bg-tertiary)",
+              color: "var(--text-tertiary)",
+              fontFamily: "var(--font-jetbrains), monospace",
+            }}
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      <div className="mt-auto pt-4 flex items-center justify-between">
+        <span className="text-xs" style={{ color: "var(--text-tertiary)" }}>
+          {project.company}
+        </span>
+        {comingSoon ? (
+          <span className="text-xs" style={{ color: "var(--text-tertiary)" }}>
+            Coming soon
+          </span>
+        ) : (
+          <span
+            className="text-xs flex items-center gap-1 group-hover:gap-2 transition-all"
+            style={{ color: "var(--accent)" }}
+          >
+            Open case file
+            <span aria-hidden>→</span>
+          </span>
+        )}
+      </div>
+    </motion.div>
+  );
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -78,68 +166,15 @@ function ProjectCard({ project, index, isLast }: { project: Project; index: numb
       transition={{ duration: 0.4, ease: "easeOut", delay: index * 0.1 }}
       className={`${isLast ? "md:col-span-2" : ""} h-full`}
     >
-      <Link href={`/cases/${project.slug}`} className="block group h-full">
-        <motion.div
-          whileHover={{ y: -4, boxShadow: "0 0 20px rgba(59,130,246,0.15), 0 8px 24px rgba(0,0,0,0.4)", borderColor: "rgba(59,130,246,0.4)" }}
-          className="rounded-lg p-5 md:p-6 h-full flex flex-col"
-          style={{
-            border: "1px solid #2a2a2a",
-            background: "#141414",
-            transition: "border-color 0.2s, box-shadow 0.2s, transform 0.2s",
-          }}
-        >
-          <p
-            className="text-xs uppercase tracking-wider"
-            style={{
-              color: "var(--text-tertiary)",
-              fontFamily: "var(--font-jetbrains), monospace",
-            }}
-          >
-            CASE FILE #{project.id}
-          </p>
-          <h3
-            className="font-bold text-lg mt-2 group-hover:text-blue-400 transition-colors"
-            style={{ color: "var(--text-primary)" }}
-          >
-            {project.label}
-          </h3>
-          <p
-            className="mt-2 text-sm leading-relaxed"
-            style={{ color: "var(--text-secondary)" }}
-          >
-            {project.problem}
-          </p>
-
-          <div className="mt-4 flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-xs px-2 py-0.5 rounded-full"
-                style={{
-                  background: "var(--bg-tertiary)",
-                  color: "var(--text-tertiary)",
-                  fontFamily: "var(--font-jetbrains), monospace",
-                }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          <div className="mt-auto pt-4 flex items-center justify-between">
-            <span className="text-xs" style={{ color: "var(--text-tertiary)" }}>
-              {project.company}
-            </span>
-            <span
-              className="text-xs flex items-center gap-1 group-hover:gap-2 transition-all"
-              style={{ color: "var(--accent)" }}
-            >
-              Open case file
-              <span aria-hidden>→</span>
-            </span>
-          </div>
-        </motion.div>
-      </Link>
+      {comingSoon ? (
+        <div className="block h-full" aria-disabled="true">
+          {body}
+        </div>
+      ) : (
+        <Link href={`/cases/${project.slug}`} className="block group h-full">
+          {body}
+        </Link>
+      )}
     </motion.div>
   );
 }

@@ -12,6 +12,7 @@ export type CaseFile = {
   learnings: string;
   honest_take: string;
   image?: string;
+  comingSoon?: boolean;
 };
 
 export const cases: CaseFile[] = [
@@ -118,6 +119,7 @@ export const cases: CaseFile[] = [
     honest_take:
       "Target amounts and progress tracking are the natural next step — users can name what they're saving for today, but can't set how much it'll cost or watch themselves get closer. That's the piece that would complete the habit loop.",
     image: "/cases/multiple-sips-targets.png",
+    comingSoon: true,
   },
   {
     id: "02",
@@ -177,7 +179,8 @@ export function getCaseBySlug(slug: string): CaseFile | undefined {
 
 export function getAdjacentCases(slug: string): { prev: CaseFile | null; next: CaseFile | null } {
   // Walk in displayed (case-number) order so prev/next matches the grid.
-  const ordered = [...cases].sort((a, b) => a.id.localeCompare(b.id));
+  // Skip unlaunched ("coming soon") cases so navigation never lands on them.
+  const ordered = [...cases].filter((c) => !c.comingSoon).sort((a, b) => a.id.localeCompare(b.id));
   const idx = ordered.findIndex((c) => c.slug === slug);
   return {
     prev: idx > 0 ? ordered[idx - 1] : null,

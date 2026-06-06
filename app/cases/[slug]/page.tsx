@@ -4,7 +4,7 @@ import { getCaseBySlug, getAdjacentCases, cases } from "@/lib/cases";
 import ReadingProgress from "@/components/ReadingProgress";
 
 export function generateStaticParams() {
-  return cases.map((c) => ({ slug: c.slug }));
+  return cases.filter((c) => !c.comingSoon).map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function CasePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const c = getCaseBySlug(slug);
-  if (!c) notFound();
+  if (!c || c.comingSoon) notFound();
 
   const { prev, next } = getAdjacentCases(slug);
 

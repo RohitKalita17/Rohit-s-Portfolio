@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 1,
   };
 
-  const casePages: MetadataRoute.Sitemap = cases.map((c) => ({
+  const casePages: MetadataRoute.Sitemap = cases.filter((c) => !c.comingSoon).map((c) => ({
     url: `${BASE_URL}/cases/${c.slug}`,
     lastModified,
     changeFrequency: "monthly",
