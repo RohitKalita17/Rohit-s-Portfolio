@@ -16,7 +16,7 @@ export type CaseFile = {
 
 export const cases: CaseFile[] = [
   {
-    id: "01",
+    id: "04",
     slug: "gold-rush",
     label: "Gold Rush",
     company: "Paytm",
@@ -42,7 +42,7 @@ export const cases: CaseFile[] = [
     image: "/cases/gold-rush.png",
   },
   {
-    id: "02",
+    id: "01",
     slug: "craft",
     label: "CRAFT(Customer Response Analysis & Feature Translator)",
     company: "Paytm",
@@ -95,7 +95,7 @@ export const cases: CaseFile[] = [
     image: "/cases/digital-silver.png",
   },
   {
-    id: "04",
+    id: "05",
     slug: "multiple-sips-targets",
     label: "Multiple SIPs + Targets",
     company: "Paytm",
@@ -120,7 +120,7 @@ export const cases: CaseFile[] = [
     image: "/cases/multiple-sips-targets.png",
   },
   {
-    id: "05",
+    id: "02",
     slug: "gold-coins",
     label: "Gold Coins",
     company: "Paytm",
@@ -176,9 +176,11 @@ export function getCaseBySlug(slug: string): CaseFile | undefined {
 }
 
 export function getAdjacentCases(slug: string): { prev: CaseFile | null; next: CaseFile | null } {
-  const idx = cases.findIndex((c) => c.slug === slug);
+  // Walk in displayed (case-number) order so prev/next matches the grid.
+  const ordered = [...cases].sort((a, b) => a.id.localeCompare(b.id));
+  const idx = ordered.findIndex((c) => c.slug === slug);
   return {
-    prev: idx > 0 ? cases[idx - 1] : null,
-    next: idx < cases.length - 1 ? cases[idx + 1] : null,
+    prev: idx > 0 ? ordered[idx - 1] : null,
+    next: idx < ordered.length - 1 ? ordered[idx + 1] : null,
   };
 }

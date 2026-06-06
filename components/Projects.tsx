@@ -15,21 +15,21 @@ type Project = {
 const projects: Project[] = [
   {
     id: "01",
-    slug: "gold-rush",
-    label: "Gold Rush — Paytm",
-    problem:
-      "A leaderboard for gold investors. Can gamification turn passive savers into active participants — at scale?",
-    company: "Paytm",
-    tags: ["Gamification", "Gold", "Growth"],
-  },
-  {
-    id: "02",
     slug: "craft",
     label: "CRAFT — Paytm",
     problem:
       "Users tell us the moment something breaks. Making sense of that response and turning it into a fix takes days. What if that gap closed to almost nothing?",
     company: "Paytm",
     tags: ["LLM", "Agentic", "Product Ops"],
+  },
+  {
+    id: "02",
+    slug: "gold-coins",
+    label: "Gold Coins — Paytm",
+    problem:
+      "What if every payment earned you gold? Building Paytm's first coin-based loyalty loop — from earning to redemption.",
+    company: "Paytm",
+    tags: ["Loyalty", "Retention", "Gold"],
   },
   {
     id: "03",
@@ -42,21 +42,21 @@ const projects: Project[] = [
   },
   {
     id: "04",
+    slug: "gold-rush",
+    label: "Gold Rush — Paytm",
+    problem:
+      "A leaderboard for gold investors. Can gamification turn passive savers into active participants — at scale?",
+    company: "Paytm",
+    tags: ["Gamification", "Gold", "Growth"],
+  },
+  {
+    id: "05",
     slug: "multiple-sips-targets",
     label: "Multiple SIPs + Targets — Paytm",
     problem:
       "SIPs felt like a forgotten autopay, not a savings habit. Could giving them something to aim at make people care?",
     company: "Paytm",
     tags: ["SIP", "Retention", "UX"],
-  },
-  {
-    id: "05",
-    slug: "gold-coins",
-    label: "Gold Coins — Paytm",
-    problem:
-      "What if every payment earned you gold? Building Paytm's first coin-based loyalty loop — from earning to redemption.",
-    company: "Paytm",
-    tags: ["Loyalty", "Retention", "Gold"],
   },
   {
     id: "06",
