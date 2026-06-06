@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rohit Kalita — Portfolio
+
+A personal portfolio built as a product, not a résumé. Interactive, opinionated, and designed to show *how I think* — an interactive terminal hero, a career "changelog," a git-diff career story, and a Decision Simulator that puts the visitor in the PM's seat.
+
+**Live sections:** Interactive terminal → The Story So Far → Changelog → Case Files → Decision Simulator → How I Work → Contact.
+
+---
+
+## Tech Stack
+
+| Layer | Choice |
+|-------|--------|
+| Framework | [Next.js 16](https://nextjs.org) (App Router, Turbopack) |
+| Language | TypeScript 5, React 19 |
+| Styling | Tailwind CSS v4 + CSS custom properties (design tokens) |
+| Animation | [Framer Motion](https://www.framer.com/motion/) 12 |
+| Icons | [lucide-react](https://lucide.dev) |
+| Fonts | Inter + JetBrains Mono via `next/font/google` |
+
+---
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Script | Does |
+|--------|------|
+| `npm run dev` | Start the dev server |
+| `npm run build` | Production build |
+| `npm run start` | Serve the production build |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/
+  page.tsx              # Single-page composition (all sections)
+  layout.tsx            # Root layout, fonts, metadata
+  globals.css           # Design tokens + global styles
+  not-found.tsx         # 404
+  cases/[slug]/page.tsx # Dynamic case-study detail pages
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+components/
+  ScrollProgress.tsx    # Right-rail section nav (dots)
+  Hero.tsx              # Interactive terminal (typewriter + command prompt)
+  About.tsx             # "The Story So Far" — Brief (git-diff) / Full story toggle
+  Experience.tsx        # Career timeline as a changelog (v1.0 → v3.0)
+  Projects.tsx          # Case Files grid
+  DecisionSimulator.tsx # "What would you have shipped?" interactive
+  Stack.tsx             # "How I Work" — tools + beliefs
+  Footer.tsx            # Contact (copy-email, socials, status chips)
+  GeometricAvatar1.tsx  # Generative avatar
+  ReadingProgress.tsx   # Scroll progress bar on case pages
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+lib/
+  cases.ts              # All case-study content (typed)
 
-## Deploy on Vercel
+public/
+  cases/                # Case-study images
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Editing Content
+
+Case studies are **data-driven** — no JSX edits needed. Each case is an object in [`lib/cases.ts`](lib/cases.ts) following the `CaseFile` type:
+
+```ts
+{
+  id, slug, label, company, tags,
+  headline, context, problem,
+  what_i_did: string[],
+  outcome, learnings, honest_take,
+  image?: "/cases/<file>.png"   // optional hero image
+}
+```
+
+Add a case → it appears in the **Case Files** grid and gets its own page at `/cases/<slug>` automatically.
+
+The Hero terminal's commands live in the `COMMANDS` map in [`components/Hero.tsx`](components/Hero.tsx) (`projects`, `experience`, `about`, `contact`, `whoami`, `clear`).
+
+---
+
+## Design System
+
+The theme is dark with a single blue accent. Tokens live in [`app/globals.css`](app/globals.css):
+
+```
+--bg-primary / secondary / tertiary   # surfaces
+--text-primary / secondary / tertiary # type
+--accent: #3B82F6                      # the one accent
+--terminal-text / --terminal-cursor    # terminal styling
+--diff-add / --diff-remove             # git-diff career story colors
+```
+
+Prefer these tokens over hardcoded values when extending the UI.
+
+---
+
+## Deploy
+
+Deploys on [Vercel](https://vercel.com) — push to the connected branch, or run `vercel`.
