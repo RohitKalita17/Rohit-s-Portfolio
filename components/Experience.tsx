@@ -9,6 +9,7 @@ type Version = {
   company: string;
   period: string;
   role: string;
+  roleHistory?: { title: string; period: string }[];
   shipped: string[];
   lesson: string;
   defaultOpen: boolean;
@@ -19,7 +20,11 @@ const versions: Version[] = [
     version: "v3.0",
     company: "Paytm",
     period: "Jan 2025 – Present",
-    role: "Associate Product Manager · Paytm Gold",
+    role: "Product Manager · Paytm Gold",
+    roleHistory: [
+      { title: "Product Manager · Paytm Gold", period: "Apr 2026 – Present" },
+      { title: "Associate Product Manager", period: "Jan 2025 – Apr 2026" },
+    ],
     shipped: [
       "Gold Coins loyalty program — daily gold transactions up ~35%, with manual gold purchases up ~17% alongside coin redemptions",
       "Digital Silver launched from zero — revenue came in 30% above what we projected, without cannibalising Gold",
@@ -132,12 +137,35 @@ function VersionBlock({ v, isCurrent }: { v: Version; isCurrent: boolean }) {
                 {v.period}
               </span>
             </div>
-            <span
-              className="text-sm"
-              style={{ color: "var(--text-secondary)" }}
-            >
-              {v.role}
-            </span>
+            {v.roleHistory ? (
+              <div className="flex flex-col gap-0.5 mt-0.5">
+                {v.roleHistory.map((r, i) => (
+                  <div key={i} className="flex items-baseline flex-wrap gap-x-2 gap-y-0.5">
+                    <span
+                      className="text-sm inline-flex items-baseline gap-1"
+                      style={{ color: i === 0 ? "var(--text-secondary)" : "var(--text-tertiary)" }}
+                    >
+                      {i === 0 && (
+                        <span aria-hidden style={{ color: "var(--accent)" }}>
+                          ↑
+                        </span>
+                      )}
+                      {r.title}
+                    </span>
+                    <span
+                      className="text-xs"
+                      style={{ color: "var(--text-tertiary)", fontFamily: "var(--font-jetbrains), monospace" }}
+                    >
+                      {r.period}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
+                {v.role}
+              </span>
+            )}
           </div>
           <button
             onClick={() => setOpen((o) => !o)}
