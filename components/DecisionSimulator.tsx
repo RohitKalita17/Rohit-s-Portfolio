@@ -16,10 +16,10 @@ const decisions: Decision[] = [
     id: 1,
     question:
       "Users' gold sell transactions are failing because the UPI mapper service returns inactive VPAs. You need to fix this fast. What's your approach?",
-    options: ["Fix the mapper service at source", "Local fallback + real-time validation"],
-    shipped: "Local fallback + real-time validation",
+    options: ["Fix the mapper service at source", "TPAP fallback + real-time validation"],
+    shipped: "TPAP fallback + real-time validation",
     reasoning:
-      "Fixing the mapper is the \"right\" answer on paper — but you don't own that service, and every day it stays broken, users lose trust in selling gold. A locally stored fallback VPA with a real-time validation check via payment switch solved the problem at our layer. A 50ms check that prevents a failed payout is worth more than a fast payout that lands in pending. Result: 27% reduction in sell pending failures — without waiting on another team's roadmap.",
+      "Fixing the mapper is the \"right\" answer on paper — but you don't own that service, and every day it stays broken, users lose trust in selling gold. A locally stored TPAP fallback VPA with a real-time validation check via payment switch solved the problem at our layer. A 50ms check that prevents a failed payout is worth more than a fast payout that lands in pending. Result: 27% reduction in sell pending failures — without waiting on another team's roadmap.",
   },
   {
     id: 2,

@@ -12,7 +12,6 @@ export type CaseFile = {
   learnings: string;
   honest_take: string;
   image?: string;
-  comingSoon?: boolean;
 };
 
 export const cases: CaseFile[] = [
@@ -96,32 +95,6 @@ export const cases: CaseFile[] = [
     image: "/cases/digital-silver.png",
   },
   {
-    id: "05",
-    slug: "multiple-sips-targets",
-    label: "Multiple SIPs + Targets",
-    company: "Paytm",
-    tags: ["SIP", "Retention", "UX"],
-    headline: "SIPs felt like a forgotten autopay, not a savings habit. Could giving them something to aim at make people care?",
-    context:
-      "~90% of users who set up a SIP never came back to check on it. It ran in the background like a forgotten autopay — no connection, no reason to return. Activation was low and quiet churn was a persistent problem.",
-    problem:
-      "The bet was that adding meaning — not more features — was the real lever. Users didn't need more SIP options; they needed a reason to care about the one they already had.",
-    what_i_did: [
-      "Enabled users to run multiple SIPs at once, each set up and managed independently.",
-      "Designed the Targets feature: users can attach what they're saving for to each SIP — a trip, a wedding, a new phone — giving the SIP an identity beyond 'monthly debit'.",
-      "Built target naming directly into the SIP setup flow — zero friction between 'create SIP' and 'name what it's for'.",
-      "Created a dedicated view so users can see all their SIPs and what each one is working toward at a glance.",
-    ],
-    outcome:
-      "25% more users started a new SIP in the weeks after launch. Users who named a target engaged more than those who didn't. The feature is live and being actively tracked — early signals are directionally strong.",
-    learnings:
-      "The feature that drives retention isn't always the one with the most technical complexity. Sometimes it's just giving users a reason to feel something about what they're doing with their money. A target did that.",
-    honest_take:
-      "Target amounts and progress tracking are the natural next step — users can name what they're saving for today, but can't set how much it'll cost or watch themselves get closer. That's the piece that would complete the habit loop.",
-    image: "/cases/multiple-sips-targets.png",
-    comingSoon: true,
-  },
-  {
     id: "02",
     slug: "gold-coins",
     label: "Gold Coins",
@@ -148,7 +121,7 @@ export const cases: CaseFile[] = [
     image: "/cases/gold-coins.png",
   },
   {
-    id: "06",
+    id: "05",
     slug: "meera-jewellery",
     label: "Meera Jewellery",
     company: "Plus Gold",
@@ -179,8 +152,7 @@ export function getCaseBySlug(slug: string): CaseFile | undefined {
 
 export function getAdjacentCases(slug: string): { prev: CaseFile | null; next: CaseFile | null } {
   // Walk in displayed (case-number) order so prev/next matches the grid.
-  // Skip unlaunched ("coming soon") cases so navigation never lands on them.
-  const ordered = [...cases].filter((c) => !c.comingSoon).sort((a, b) => a.id.localeCompare(b.id));
+  const ordered = [...cases].sort((a, b) => a.id.localeCompare(b.id));
   const idx = ordered.findIndex((c) => c.slug === slug);
   return {
     prev: idx > 0 ? ordered[idx - 1] : null,

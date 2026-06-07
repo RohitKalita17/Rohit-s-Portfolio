@@ -23,7 +23,6 @@ const versions: Version[] = [
     shipped: [
       "Gold Coins loyalty program — daily gold transactions up ~35%, with manual gold purchases up ~17% alongside coin redemptions",
       "Digital Silver launched from zero — revenue came in 30% above what we projected, without cannibalising Gold",
-      "Multiple SIPs + Targets — 25% more users starting a new SIP after launch",
       "CRAFT — an LLM-powered PM workspace, scan KPIs and funnels, surface growth ideas from live signals",
       "Gold Rush — 28% more lump sum investments during the campaign vs. the 4 weeks before it",
       "Week-4 Repeat user retention up 15% after a portfolio visibility redesign",
